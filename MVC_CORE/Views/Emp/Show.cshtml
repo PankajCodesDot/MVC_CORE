@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MVC_CORE.Models.tblemployees1>
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Show</h1>
+
+<p>
+    <a asp-action="Add" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.country)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cname)
+            </td>
+            <td>
+                <a asp-action="Add" class="btn btn-info" asp-route-id="@item.id">Edit</a> 
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
