@@ -11,6 +11,6 @@ namespace MVC_CORE.Models
         [Key]
         public int sid { get; set; }
         public int cid { get; set; }
-        public string sname { get; set; }
+        public string sname { get;set; }
     }
 }

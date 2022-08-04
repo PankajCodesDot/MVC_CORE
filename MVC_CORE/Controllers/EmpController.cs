@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_CORE.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVC_CORE.Controllers
 {
@@ -26,8 +24,8 @@ namespace MVC_CORE.Controllers
                 obj.id = data[0].id;
                 obj.name = data[0].name;
                 obj.address = data[0].address;
-                obj.gender = data[0].gender;
                 obj.country = data[0].country;
+                obj.state = data[0].state;
                 ViewBag.bt = "Update";
             }
             return View(obj);
@@ -38,7 +36,6 @@ namespace MVC_CORE.Controllers
             if(emp.id>0)
             {
                 db.Entry(emp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-               // GetState(emp.state);
             }
             else
             {
@@ -69,11 +66,13 @@ namespace MVC_CORE.Controllers
             db.tblemployees.Remove(data);
             db.SaveChanges();
             return RedirectToAction("Show");
+
         }
         
         public JsonResult GetState(int A)
         {
-            var data = (from a in db.tblstates where a.cid == A select a).ToList();
+           // var data = (from a in db.tblstates where a.cid == A select a).ToList();
+            var data = db.tblstates.Where(a => a.cid == A).ToList();
             return Json(data);
         }
     }
