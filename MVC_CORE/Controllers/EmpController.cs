@@ -38,6 +38,7 @@ namespace MVC_CORE.Controllers
             if(emp.id>0)
             {
                 db.Entry(emp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+               // GetState(emp.state);
             }
             else
             {
@@ -46,28 +47,34 @@ namespace MVC_CORE.Controllers
             db.SaveChanges();
             return RedirectToAction("Show");
         }
-
         public IActionResult Show()
         {
             var data = (from a in db.tblemployees
                         join b in db.tblgenders on a.gender equals b.gid
                         join c in db.tblcountries on a.country equals c.cid
+                        join d in db.tblstates on a.state equals d.sid
                         select new tblemployees1 {
                             id = a.id,
                             name = a.name,
-                            address=a.address,
-                            gname=b.gname,
-                            cname=c.cname
+                            address = a.address,
+                            gname = b.gname,
+                            cname = c.cname,
+                            sname = d.sname
                         }).ToList();
             return View(data);
         }
-
         public IActionResult Delete(int id=0)
         {
             var data = db.tblemployees.Find(id);
             db.tblemployees.Remove(data);
             db.SaveChanges();
             return RedirectToAction("Show");
+        }
+        
+        public JsonResult GetState(int A)
+        {
+            var data = (from a in db.tblstates where a.cid == A select a).ToList();
+            return Json(data);
         }
     }
 }

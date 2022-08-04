@@ -3,14 +3,16 @@ using MVC_CORE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVC_CORE.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220804043027_third")]
+    partial class third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +54,6 @@ namespace MVC_CORE.Migrations
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("state")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
 
                     b.ToTable("tblemployees");
@@ -73,24 +72,6 @@ namespace MVC_CORE.Migrations
                     b.HasKey("gid");
 
                     b.ToTable("tblgenders");
-                });
-
-            modelBuilder.Entity("MVC_CORE.Models.tblstate", b =>
-                {
-                    b.Property<int>("sid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("cid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("sname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("sid");
-
-                    b.ToTable("tblstates");
                 });
 #pragma warning restore 612, 618
         }

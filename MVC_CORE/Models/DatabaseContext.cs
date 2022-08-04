@@ -15,5 +15,6 @@ namespace MVC_CORE.Models
         public DbSet<tblemployee> tblemployees { get; set; }
         public DbSet<tblgender> tblgenders { get; set; }
         public DbSet<tblcountry> tblcountries { get; set; }
+        public DbSet<tblstate> tblstates { get; set; }
     }
 }

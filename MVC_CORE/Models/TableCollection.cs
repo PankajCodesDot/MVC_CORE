@@ -9,5 +9,6 @@ namespace MVC_CORE.Models
     {
         public List<tblgender> tblgenders { get; set; }
         public List<tblcountry> tblcountries { get; set; }
+     
     }
 }

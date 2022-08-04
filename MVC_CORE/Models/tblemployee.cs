@@ -14,5 +14,6 @@ namespace MVC_CORE.Models
         public string address { get; set; }
         public int gender { get; set; }
         public int country { get; set; }
+        public int state { get; set; }
     }
 }
