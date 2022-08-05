@@ -37,11 +37,12 @@
             <div class="form-group">
                 <label asp-for="state" class="control-label"></label>
                 <br />
-                @Html.DropDownListFor(x => x.state, new SelectList(""), "--Select State--");
+                @Html.DropDownListFor(x => x.state, new SelectList(""), "--Select State--")
+                <input type="hidden" id="hdnstate" value="@Model.state"/>
                 <span asp-validation-for="state" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="@ViewBag.bt" class="btn btn-warning" />
+                <input type="submit" value="@ViewBag.BT" class="btn btn-warning" />
             </div>
         </form>
     </div>
@@ -54,20 +55,25 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
-    function BindState()
-    {
+    BindState();
+    function BindState() {
+        
         $.ajax({
-            
             url: '/Emp/GetState',
             type: 'post',
             data: { A: $("#country").val() },
             success: function (data) {
-               $("#state").empty();
-                    $("#state").append($('<option></option>').html("Select State").val(0));
+                
+                $("#state").empty();
+                var hdnstate = $("#hdnstate").val();
+                $("#state").append($('<option></option>').html("Select State").val(0));
                 for (var i = 0; i < data.length; i++) {
                     $("#state").append($('<option></option>').html(data[i].sname).val(data[i].sid));
+                }
+                if (hdnstate != null && hdnstate!= undefined) {
+                    $("#state").val(hdnstate);
                 }
             },
             error: function () {

@@ -17,27 +17,30 @@ namespace MVC_CORE.Controllers
             TableCollection obj = new TableCollection();
             obj.tblgenders = db.tblgenders.ToList();
             obj.tblcountries = db.tblcountries.ToList();
-            ViewBag.bt = "Save";
+            
+            ViewBag.BT = "Save";
             if(id>0)
             {
                 var data = db.tblemployees.Where(x => x.id == id).ToList();
                 obj.id = data[0].id;
                 obj.name = data[0].name;
                 obj.address = data[0].address;
+                obj.gender = data[0].gender;
                 obj.country = data[0].country;
                 obj.state = data[0].state;
-                ViewBag.bt = "Update";
+              
+                ViewBag.BT = "Update";
             }
             return View(obj);
         }
         [HttpPost]
         public IActionResult Add(tblemployee emp)
         {
-            if(emp.id>0)
+           if(emp.id>0)
             {
                 db.Entry(emp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             }
-            else
+           else
             {
                 db.tblemployees.Add(emp);
             }
@@ -45,7 +48,7 @@ namespace MVC_CORE.Controllers
             return RedirectToAction("Show");
         }
         public IActionResult Show()
-        {
+        { 
             var data = (from a in db.tblemployees
                         join b in db.tblgenders on a.gender equals b.gid
                         join c in db.tblcountries on a.country equals c.cid
@@ -66,9 +69,7 @@ namespace MVC_CORE.Controllers
             db.tblemployees.Remove(data);
             db.SaveChanges();
             return RedirectToAction("Show");
-
         }
-        
         public JsonResult GetState(int A)
         {
            // var data = (from a in db.tblstates where a.cid == A select a).ToList();
